@@ -2,17 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Create product</title>
+    <title>Create note</title>
 </head>
 <body>
-<h3>New product</h3>
+<h3>New note</h3>
 <form method="post">
     <label>Sentence</label><br>
     <input name="sentence"/><br><br>
     <label>Date</label><br>
     <input name="date"/><br><br>
-    <label>Importance</label><br>
-    <input name="importance"/><br><br>
+    importance: <select name="importance">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
     <input type="submit" value="Save"/>
 </form>
 </body>

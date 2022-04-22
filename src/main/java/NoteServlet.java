@@ -8,10 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Note.NoteToBd;
 import Note.Sentence;
-
 
 
 @WebServlet("/index")
@@ -19,6 +19,8 @@ public class NoteServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
         NoteToBd noteToBd = null;
         try {
             noteToBd = new NoteToBd();
@@ -27,7 +29,6 @@ public class NoteServlet extends HttpServlet {
         }
         List<Sentence> note = noteToBd.select();
         request.setAttribute("note", note);
-
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/create")
-public class AddNewNode extends HttpServlet {
+public class AddNewNote extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -20,8 +20,10 @@ public class AddNewNode extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            String name = request.getParameter("name");
-            String date = (request.getParameter("price"));
+            response.setContentType("text/html;charset=UTF-8");
+
+            String name = request.getParameter("sentence");
+            String date = (request.getParameter("date"));
             int importance = Integer.parseInt(request.getParameter("importance"));
 
             Sentence sentence = new Sentence(1, name, date, importance);

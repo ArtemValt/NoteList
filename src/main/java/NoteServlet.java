@@ -14,11 +14,13 @@ import Note.NoteToBd;
 import Note.Sentence;
 
 
+
 @WebServlet("/index")
 public class NoteServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
 
         NoteToBd noteToBd = null;
@@ -27,8 +29,20 @@ public class NoteServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         List<Sentence> note = noteToBd.select();
         request.setAttribute("note", note);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
+        System.out.println("Get");
+
+
     }
+
+
+    @Override
+    public void destroy() {
+        System.out.println("destr");
+    }
+
+
 }

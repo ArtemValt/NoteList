@@ -3,13 +3,17 @@ package Note;
 public class Sentence {
     private int id;
     private String sentence;
-    private String date;
+    private String createdDate;
+
+    private String dateСompletion;
+
     private int importance;
 
-    public Sentence(int id, String sentence, String date, int importance) {
+    public Sentence(int id, String sentence, String createdDate, String dateСompletion, int importance) {
         this.id = id;
         this.sentence = sentence;
-        this.date = date;
+        this.createdDate = createdDate;
+        this.dateСompletion = dateСompletion;
         this.importance = importance;
     }
 
@@ -21,12 +25,15 @@ public class Sentence {
         return sentence;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public String getDateСompletion() {
+        return dateСompletion;
     }
 
     public int getImportance() {
         return importance;
     }
 }
-

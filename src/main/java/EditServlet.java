@@ -1,4 +1,5 @@
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,9 +41,8 @@ public class EditServlet extends HttpServlet {
             String name = request.getParameter("name");
             String date = (request.getParameter("date"));
             int importance = Integer.parseInt(request.getParameter("importance"));
-            Sentence sentence = new Sentence(id, name, date,importance);
+            Sentence sentence = new Sentence(id, name,new String(""), date,importance);
             NoteToBd.update(sentence);
-
             response.sendRedirect(request.getContextPath() + "/index");
         }
         catch(Exception ex) {

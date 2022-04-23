@@ -26,7 +26,7 @@ public class AddNewNote extends HttpServlet {
             String date = (request.getParameter("date"));
             int importance = Integer.parseInt(request.getParameter("importance"));
 
-            Sentence sentence = new Sentence(1, name, date, importance);
+            Sentence sentence = new Sentence(1, name, new String("") ,date, importance);
             NoteToBd.insert(sentence);
 
             response.sendRedirect(request.getContextPath() + "/index");

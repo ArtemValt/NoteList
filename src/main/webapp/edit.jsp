@@ -12,13 +12,13 @@
     <input name="name" value="${notes.name}" /><br><br>
     <label>date</label><br>
     <input name="date" value="${notes.date}" /><br><br>
-    importance: <select name="importance">
+    importance: <select name="importance"> value="${notes.price}" /><br><br>
     <option>1</option>
     <option>2</option>
     <option>3</option>
     <option>4</option>
 
-    <input name="importance" value="${notes.price}" type="number" min="0" /><br><br>
+<%--    <input name="importance" value="${notes.price}" type="number" min="0" /><br><br>--%>
     <input type="submit" value="Send" />
 </form>
 </body>

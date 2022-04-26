@@ -5,10 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Note List</title>
+    <%--    <%@include file='css/main.css' %>--%>
+
 </head>
 <body>
+<%--<%@include file='css/menu.css' %>--%>
 <h2>Note List</h2>
 <p><a href='<c:url value="/create" />'>Create new</a></p>
+<a href='<c:url value="/searchId.jsp" />'>Search Note</a> |
+
 <table>
     <thead>
     </thead>
@@ -36,7 +41,24 @@
         </td>
         </tr>
     </c:forEach>
-    <a href='<c:url value="/searchId.jsp" />'>Search Note</a> |
+    Напоминание
+    <tr
+    <c:forEach var="remember" items="${remember}">
+        <td>${remember.id}</td>
+        <td>${remember.sentence}</td>
+        <td>${remember.createdDate}</td>
+        <td>${remember.dateСompletion}</td>
+        <td>${remember.importance}</td>
+        <td>
+            <a href='<c:url value="/edit?id=${remember.id}" />'>Edit</a> |
+            x
+            <form method="post" action='<c:url value="/delete" />' style="display:inline;">
+                <input type="hidden" name="id" value="${remember.id}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+        </tr>
+    </c:forEach>
 
 </table>
 </body>

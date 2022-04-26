@@ -1,14 +1,14 @@
 package Note;
 
-import java.lang.reflect.InvocationTargetException;
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 public class NoteToBd extends Table {
     public NoteToBd() throws SQLException {
     }
@@ -17,9 +17,9 @@ public class NoteToBd extends Table {
     public static List<Sentence> node = new LinkedList<>();
 
     public static List<Sentence> select(int userID) {
+        node.clear();
         try {
-            Statement stat = connection.createStatement();
-            ResultSet rs = stat.executeQuery("SELECT * FROM Node WHERE USERS_ID = " + userID +
+            ResultSet rs = st.executeQuery("SELECT * FROM Node WHERE USERS_ID = " + userID +
                     " ORDER BY importance DESC, CreatedWhen DESC;");
 
             while (rs.next()) {
@@ -38,6 +38,7 @@ public class NoteToBd extends Table {
             e.printStackTrace();
         }
         return node;
+
     }
 
     public static Sentence selectOne(long id, long userID) {
@@ -65,9 +66,9 @@ public class NoteToBd extends Table {
     }
 
     public static void insert(Sentence sentence) {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String text = date.format(formatter);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO Node " +
@@ -75,7 +76,7 @@ public class NoteToBd extends Table {
                             "VALUES ( ?, ?, ?, ?, ?);");
 
             preparedStatement.setString(1, sentence.getSentence());
-            preparedStatement.setString(2, text);
+            preparedStatement.setString(2, formatter.format(calendar.getTime()).toString());
             preparedStatement.setString(3, sentence.getDateСompletion());
             preparedStatement.setString(4, String.valueOf(sentence.getImportance()));
             preparedStatement.setLong(5, sentence.getUser_id());
@@ -87,15 +88,14 @@ public class NoteToBd extends Table {
     }
 
     public static void update(Sentence sentence) {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String text = date.format(formatter);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         try {
             String sql = "UPDATE NODE SET Sentence = ?, CreatedWhen = ? ,ComplDate=?, Importance = ? WHERE id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, sentence.getSentence());
-            preparedStatement.setString(2, text);
+            preparedStatement.setString(2, formatter.format(calendar.getTime()).toString());
             preparedStatement.setInt(4, sentence.getImportance());
             preparedStatement.setString(3,sentence.getDateСompletion());
             preparedStatement.setInt(5, sentence.getId());

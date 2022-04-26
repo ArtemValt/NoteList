@@ -35,6 +35,9 @@ public class SearchServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
+        if(list.isEmpty())
+            response.sendRedirect(request.getContextPath() + "/notsearch.jsp");
+
         request.setAttribute("note", list);
         getServletContext().getRequestDispatcher("/searchall.jsp").forward(request, response);
     }

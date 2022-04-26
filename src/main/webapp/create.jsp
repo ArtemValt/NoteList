@@ -9,7 +9,7 @@
 <form method="post">
     <label>Sentence</label><br>
     <input name="sentence"/><br><br>
-    <label>Date</label><br>
+    <label>Date (yyyy-MM-dd HH:mm) </label><br>
     <input name="date"/><br><br>
     importance: <select name="importance">
     <option>1</option>

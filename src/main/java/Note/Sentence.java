@@ -9,12 +9,15 @@ public class Sentence {
 
     private int importance;
 
-    public Sentence(int id, String sentence, String createdDate, String dateСompletion, int importance) {
+    private int user_id;
+
+    public Sentence(int id, String sentence, String createdDate, String dateСompletion, int importance, int user_id) {
         this.id = id;
         this.sentence = sentence;
         this.createdDate = createdDate;
         this.dateСompletion = dateСompletion;
         this.importance = importance;
+        this.user_id = user_id;
     }
 
     public int getId() {
@@ -35,5 +38,9 @@ public class Sentence {
 
     public int getImportance() {
         return importance;
+    }
+
+    public int getUser_id() {
+        return user_id;
     }
 }

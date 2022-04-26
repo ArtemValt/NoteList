@@ -26,7 +26,6 @@
         <td>${notes.createdDate}</td>
         <td>${notes.dateСompletion}</td>
         <td>${notes.importance}</td>
-
         <td>
             <a href='<c:url value="/edit?id=${notes.id}" />'>Edit</a> |
 

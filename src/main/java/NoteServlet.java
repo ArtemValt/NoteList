@@ -14,7 +14,6 @@ import Note.NoteToBd;
 import Note.Sentence;
 
 
-
 @WebServlet("/index")
 public class NoteServlet extends HttpServlet {
 
@@ -22,6 +21,10 @@ public class NoteServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("userId")).equals("null"))
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        String userId = String.valueOf(session.getAttribute("userId"));
 
         NoteToBd noteToBd = null;
         try {
@@ -30,7 +33,7 @@ public class NoteServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        List<Sentence> note = noteToBd.select();
+        List<Sentence> note = noteToBd.select(Integer.parseInt(userId));
         request.setAttribute("note", note);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
         System.out.println("Get");

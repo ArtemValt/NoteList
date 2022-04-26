@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Note.NoteToBd;
 import Note.Sentence;
@@ -17,9 +18,12 @@ public class EditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            Sentence sentence = NoteToBd.selectOne(id);
+            HttpSession session = request.getSession();
+            String userId = String.valueOf(session.getAttribute("userId"));
+            Sentence sentence = NoteToBd.selectOne(id, Long.parseLong(userId));
             if(sentence!=null) {
                 request.setAttribute("note", sentence);
                 getServletContext().getRequestDispatcher("/edit.jsp").forward(request, response);
@@ -41,7 +45,9 @@ public class EditServlet extends HttpServlet {
             String name = request.getParameter("name");
             String date = (request.getParameter("date"));
             int importance = Integer.parseInt(request.getParameter("importance"));
-            Sentence sentence = new Sentence(id, name,new String(""), date,importance);
+            HttpSession session = request.getSession();
+            String userId = String.valueOf(session.getAttribute("userId"));
+            Sentence sentence = new Sentence(id, name,new String(""), date,importance,Integer.parseInt(userId));
             NoteToBd.update(sentence);
             response.sendRedirect(request.getContextPath() + "/index");
         }

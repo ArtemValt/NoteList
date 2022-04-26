@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Note.NoteToBd;
 import Note.Sentence;
@@ -21,13 +22,15 @@ public class SearchServlet extends HttpServlet {
         String userdate = request.getParameter("userdate");
         String importance = request.getParameter("importance");
         String sentence = request.getParameter("sentence");
+        HttpSession session = request.getSession();
+
         List<Sentence> list = null;
 
         if (id.equals(""))
-            list = NoteToBd.search(sentence, Integer.parseInt(importance), userdate);
+            list = NoteToBd.search(sentence, Integer.parseInt(importance), userdate,Integer.parseInt(String.valueOf(session.getAttribute("userId"))));
         else {
             try {
-                list = NoteToBd.searchid(Integer.parseInt(id));
+                list = NoteToBd.searchid(Integer.parseInt(id),Integer.parseInt(String.valueOf(session.getAttribute("userId"))));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

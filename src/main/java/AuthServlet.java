@@ -1,4 +1,3 @@
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,8 +56,7 @@ public class AuthServlet extends HttpServlet {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            }
-            else {
+            } else {
                 req.setAttribute("textError", "Посмотрите корректность данных!");
                 resp.sendRedirect(req.getContextPath() + "/regis.jsp");
             }

@@ -2,13 +2,12 @@ package Note;
 
 import Connect.ConnectionCreator;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Table  implements AutoCloseable  {
+public class Table implements AutoCloseable {
 
     static ConnectionCreator conn = new ConnectionCreator();
     static Connection connection;
@@ -38,7 +37,7 @@ public class Table  implements AutoCloseable  {
     @Override
     public void close() throws IOException {
         try {
-            if(connection != null && !connection.isClosed()) {
+            if (connection != null && !connection.isClosed()) {
                 connection.close();
             }
         } catch (SQLException e) {

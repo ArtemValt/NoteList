@@ -10,8 +10,3 @@
 </html>
 
 
-<%-- <c:forEach var="notes" items="${note}">
-        <td>${notes.id}</td>
-        <td>${notes.sentence}</td>
-        <td>${notes.date}</td>
-        <td>${notes.importance}</td>--%>

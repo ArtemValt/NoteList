@@ -1,15 +1,13 @@
-import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import Note.NoteToBd;
+import Note.Sentence;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import Note.NoteToBd;
-import Note.Sentence;
-
+import java.io.IOException;
 
 
 @WebServlet("/edit")
@@ -24,15 +22,13 @@ public class EditServlet extends HttpServlet {
             HttpSession session = request.getSession();
             String userId = String.valueOf(session.getAttribute("userId"));
             Sentence sentence = NoteToBd.selectOne(id, Long.parseLong(userId));
-            if(sentence!=null) {
+            if (sentence != null) {
                 request.setAttribute("note", sentence);
                 getServletContext().getRequestDispatcher("/edit.jsp").forward(request, response);
-            }
-            else {
+            } else {
                 getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
             }
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
         }
     }
@@ -47,11 +43,10 @@ public class EditServlet extends HttpServlet {
             int importance = Integer.parseInt(request.getParameter("importance"));
             HttpSession session = request.getSession();
             String userId = String.valueOf(session.getAttribute("userId"));
-            Sentence sentence = new Sentence(id, name,new String(""), date,importance,Integer.parseInt(userId));
+            Sentence sentence = new Sentence(id, name, new String(""), date, importance, Integer.parseInt(userId));
             NoteToBd.update(sentence);
             response.sendRedirect(request.getContextPath() + "/index");
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
 
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
         }

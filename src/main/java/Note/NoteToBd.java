@@ -1,6 +1,5 @@
 package Note;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 public class NoteToBd extends Table {
     public NoteToBd() throws SQLException {
     }
@@ -97,9 +97,8 @@ public class NoteToBd extends Table {
             preparedStatement.setString(1, sentence.getSentence());
             preparedStatement.setString(2, formatter.format(calendar.getTime()).toString());
             preparedStatement.setInt(4, sentence.getImportance());
-            preparedStatement.setString(3,sentence.getDateСompletion());
+            preparedStatement.setString(3, sentence.getDateСompletion());
             preparedStatement.setInt(5, sentence.getId());
-
 
 
             preparedStatement.executeUpdate();
@@ -131,7 +130,7 @@ public class NoteToBd extends Table {
 
     public static List<Sentence> search(String name, int imp, String date, int id) {
         List<Sentence> l = select(id).stream().
-                filter(x -> x.getSentence().contains(name) && x.getImportance() == imp && x.getCreatedDate().contains(date)).
+                filter(x -> x.getSentence().contains(name) && x.getImportance() == imp && x.getDateСompletion().contains(date)).
                 collect(Collectors.toList());
         return l;
 

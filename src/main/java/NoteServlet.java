@@ -1,13 +1,5 @@
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import Note.NoteToBd;
+import Note.Sentence;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
-
-import Note.NoteToBd;
-import Note.Sentence;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @WebServlet("/index")
@@ -58,8 +54,10 @@ public class NoteServlet extends HttpServlet {
                 int dayDiff = c2.get(Calendar.DAY_OF_MONTH) - c1.get(Calendar.DAY_OF_MONTH);
                 int minDif = c2.get(Calendar.MINUTE) - c1.get(Calendar.MINUTE);
                 int hoursdif = c2.get(Calendar.HOUR) - c1.get(Calendar.HOUR);
-                if (yearDiff == 0 && monthDiff == 0 && dayDiff == 0 && hoursdif == 1 || minDif < 60 && minDif > 0)
-                    remember.add(a);
+                if (yearDiff == 0 && monthDiff == 0 && dayDiff == 0) {
+                    if (Math.abs(hoursdif) == 1 || hoursdif == 0)
+                        remember.add(a);
+                }
 
 
             } catch (ParseException e) {

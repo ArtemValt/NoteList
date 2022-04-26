@@ -1,29 +1,65 @@
+
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Search by </title>
-</head>
+<style>
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+</style>
 <body>
-<form action="search" method="POST">
-    <br><br>
-    Search by ID
-    <br><br>
-    Id:<input name="id"/>
-    <br><br>
-    Search not Id
-    <br><br>
-    Sentence: <input name="sentence"/>
-    <br><br>
-    Date: <input name="userdate"/>
-    <br><br>
-    importance: <select name="importance">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-    </select>
-    <input type="submit" value="Submit"/>
-</form>
+
+<div>
+    <form action="search" method="post">
+        Find by id
+        <label for="id">Sentence</label>
+        <input type="text" id="id" name="id" placeholder="Your id">
+        Find using other options
+        <label for="sentence">Sentence</label>
+        <input type="text" id="sentence" name="sentence" placeholder="Your note">
+
+        <label for="Date">Date Complete (dd-MM-yyyy HH:mm:ss)</label>
+        <input type="text" id="Date" name="date" placeholder="Date complete">
+
+        <label for="importance">Importance</label>
+        <select id="importance" name="importance">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+
+
+        </select>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
 </body>
 </html>

@@ -1,5 +1,7 @@
-import Note.NoteToBd;
-import Note.Sentence;
+package Notebook.Servlets;
+
+import Notebook.Note.NoteToBd;
+import Notebook.Note.Sentence;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +25,7 @@ public class SearchServlet extends HttpServlet {
 
         List<Sentence> list = null;
 
-        if (id.equals(""))
+        if ("".equals(id))
             list = NoteToBd.search(sentence, Integer.parseInt(importance), userdate, Integer.parseInt(String.valueOf(session.getAttribute("userId"))));
         else {
             try {

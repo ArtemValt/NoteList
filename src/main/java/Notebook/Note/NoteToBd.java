@@ -1,4 +1,4 @@
-package Note;
+package Notebook.Note;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class NoteToBd extends Table {
-    public NoteToBd() throws SQLException {
-    }
+
 
 
     public static List<Sentence> node = new LinkedList<>();
+
+    public NoteToBd() throws SQLException {
+    }
 
     public static List<Sentence> select(int userID) {
         node.clear();

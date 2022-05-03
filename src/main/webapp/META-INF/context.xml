@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource name="jdbc/notebookDB"
+              auth="Container"
+              description = "DB Connection"
+              type="javax.sql.DataSource"
+              username="qwerty"
+              password="qwerty"
+              driverClassName="org.h2.Driver"
+              url="jdbc:h2:C:/Users/1/IdeaProjects/education/BAZA/baz;AUTO_SERVER=TRUE"
+              maxTotal="15"
+              maxIdle="3"
+              maxWaitMillis="10000"/>
+</Context>

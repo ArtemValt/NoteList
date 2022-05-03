@@ -1,3 +1,7 @@
+package Notebook.Servlets;
+
+import Notebook.Connect.ConnectionPool;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -5,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @WebServlet(urlPatterns = "/auth")
 public class AuthServlet extends HttpServlet {
@@ -21,19 +28,14 @@ public class AuthServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         System.out.println("Post AUTH");
         HttpSession session = req.getSession();
-        String userId = (String) session.getAttribute("userId");
+        String userId = String.valueOf(session.getAttribute("userId"));
 
         try {
             String password = req.getParameter("password");
             String login = req.getParameter("username");
             if (!password.equals("") && !login.equals("")) {
-                Class.forName("org.h2.Driver").getDeclaredConstructor().newInstance();
-                Connection conn = null;
-                try {
-                    conn = DriverManager.getConnection("jdbc:h2:C:/Users/1/IdeaProjects/education/BAZA/baz;AUTO_SERVER=TRUE", "qwerty", "qwerty");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                Connection conn = ConnectionPool.getInstance().getConnection();
+
                 try {
 
                     Statement statement = conn.createStatement();
@@ -43,22 +45,18 @@ public class AuthServlet extends HttpServlet {
                     while (resultSet.next()) {
                         int id = resultSet.getInt(1);
                         session.setAttribute("userId", String.valueOf(id));
+                        userId = String.valueOf(id);
                     }
-                    if (!session.getAttribute("userId").equals(null))
+                    if (!userId.equals("null"))
                         resp.sendRedirect(req.getContextPath() + "/index");
                     else {
-                        req.setAttribute("textError", "Посмотрите корректность данных!");
                         resp.sendRedirect(req.getContextPath() + "/regis.jsp");
                     }
                 } catch (SQLException e) {
-                    req.setAttribute("textError", "Посмотрите корректность данных!");
-                    resp.sendRedirect(req.getContextPath() + "/regis.jsp");
+                    throw new SQLException(e);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            } else {
-                req.setAttribute("textError", "Посмотрите корректность данных!");
-                resp.sendRedirect(req.getContextPath() + "/regis.jsp");
             }
 
         } catch (Exception e) {

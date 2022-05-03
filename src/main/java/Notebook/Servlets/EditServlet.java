@@ -1,5 +1,7 @@
-import Note.NoteToBd;
-import Note.Sentence;
+package Notebook.Servlets;
+
+import Notebook.Note.NoteToBd;
+import Notebook.Note.Sentence;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

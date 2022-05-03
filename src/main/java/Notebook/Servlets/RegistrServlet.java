@@ -1,3 +1,9 @@
+package Notebook.Servlets;
+
+import Notebook.Connect.ConnectionPool;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +14,8 @@ import java.sql.*;
 
 @WebServlet(urlPatterns = "/registr")
 public class RegistrServlet extends HttpServlet {
+//    private static final Logger log = Logger.getLogger(RegistrServlet.class);
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
@@ -16,16 +24,9 @@ public class RegistrServlet extends HttpServlet {
             String password = req.getParameter("password");
             String login = req.getParameter("username");
             if (password != null && login != null) {
-                Class.forName("org.h2.Driver").getDeclaredConstructor().newInstance();
-                Connection conn = null;
-                try {
-                    conn = DriverManager.getConnection("jdbc:h2:C:/Users/1/IdeaProjects/education/BAZA/baz;AUTO_SERVER=TRUE", "qwerty", "qwerty");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                Connection conn = ConnectionPool.getInstance().getConnection();
                 Statement statement = conn.createStatement();
-                String sql = "Select USERNAME from users ";
-                ResultSet rs = statement.executeQuery(sql);
+                ResultSet rs = statement.executeQuery("Select USERNAME from users ");
                 while (rs.next()) {
                     String sentence = rs.getString(1);
                     if (sentence.equals(login)) {

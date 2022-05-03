@@ -1,4 +1,4 @@
-package Note;
+package Notebook.Note;
 
 public class Sentence {
     private int id;

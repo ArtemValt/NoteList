@@ -2,7 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <tr>
   <th><a href='<c:url value="/create" />'>Create new</a></th>
-  <th> <a href='<c:url value="/searchId.jsp" />'>Search Note </a></th>
+  <th> <a href='<c:url value="/searchId.jsp" />'>Search Notebook.Note </a></th>
 </tr>
 
 <!DOCTYPE html>

@@ -1,4 +1,4 @@
-package Note;
+package Notebook.Note;
 
 import java.sql.SQLException;
 

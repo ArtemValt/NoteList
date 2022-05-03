@@ -1,6 +1,6 @@
-package Note;
+package Notebook.Note;
 
-import Connect.ConnectionCreator;
+import Notebook.Connect.ConnectionPool;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,18 +9,10 @@ import java.sql.Statement;
 
 public class Table implements AutoCloseable {
 
-    static ConnectionCreator conn = new ConnectionCreator();
-    static Connection connection;
 
-    static {
-        try {
-            connection = conn.createConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    static Connection connection = ConnectionPool.getInstance().getConnection();
     public static Statement st;
+
 
     static {
         try {

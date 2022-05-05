@@ -2,6 +2,7 @@ package Notebook.Servlets;
 
 import Notebook.Note.NoteToBd;
 import Notebook.Note.Sentence;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/edit")
 public class EditServlet extends HttpServlet {
+   private final static Logger logger = Logger.getLogger(EditServlet.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,6 +29,7 @@ public class EditServlet extends HttpServlet {
             if (sentence != null) {
                 request.setAttribute("note", sentence);
                 getServletContext().getRequestDispatcher("/edit.jsp").forward(request, response);
+                logger.info("record changed\n");
             } else {
                 getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
             }

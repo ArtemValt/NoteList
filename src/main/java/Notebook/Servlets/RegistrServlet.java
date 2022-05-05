@@ -1,8 +1,7 @@
 package Notebook.Servlets;
 
 import Notebook.Connect.ConnectionPool;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,14 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
 
+import org.apache.log4j.Logger;
+
+
 @WebServlet(urlPatterns = "/registr")
 public class RegistrServlet extends HttpServlet {
-//    private static final Logger log = Logger.getLogger(RegistrServlet.class);
+    private final static Logger logger = Logger.getLogger(RegistrServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
         try {
+            logger.info("Log4j2ExampleApp started.");
+            logger.info("Log4j2ExampleApp started.");
+            logger.warn("Something to warn");
+            logger.error("Something failed.");
             boolean compare = true;
             String password = req.getParameter("password");
             String login = req.getParameter("username");
@@ -35,11 +41,14 @@ public class RegistrServlet extends HttpServlet {
                     }
                 }
                 if (compare != true) {
+                    logger.info("Пользователь не найден");
                     resp.sendRedirect(req.getContextPath() + "/regis.jsp");
                 } else {
                     statement.execute("INSERT INTO USERS (USERNAME, PASSWORD )  " +
                             "values('" + login +
                             "', '" + password + "');");
+                    logger.info("Пользователь зарегестрировался");
+
                     resp.sendRedirect(req.getContextPath() + "/login.jsp");
                 }
 

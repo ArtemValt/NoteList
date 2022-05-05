@@ -16,6 +16,7 @@ public class NoteToBd extends Table {
     public static List<Sentence> node = new LinkedList<>();
 
     public NoteToBd() throws SQLException {
+
     }
 
     public static List<Sentence> select(int userID) {

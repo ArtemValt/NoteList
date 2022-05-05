@@ -2,6 +2,7 @@ package Notebook.Servlets;
 
 import Notebook.Note.NoteToBd;
 import Notebook.Note.Sentence;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,8 @@ import java.io.IOException;
 
 @WebServlet("/create")
 public class AddNewNote extends HttpServlet {
+    private final static Logger logger = Logger.getLogger(AddNewNote.class);
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -32,6 +35,7 @@ public class AddNewNote extends HttpServlet {
             String userId = String.valueOf(session.getAttribute("userId"));
             Sentence sentence = new Sentence(1, name, new String(""), date, importance, Integer.parseInt(userId));
             NoteToBd.insert(sentence);
+            logger.info("sentence insert");
 
             response.sendRedirect(request.getContextPath() + "/index");
         } catch (Exception ex) {

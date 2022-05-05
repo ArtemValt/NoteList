@@ -2,8 +2,8 @@ package Notebook.Servlets;
 
 import Notebook.Note.NoteToBd;
 import Notebook.Note.Sentence;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +22,7 @@ import java.util.List;
 
 @WebServlet("/index")
 public class NoteServlet extends HttpServlet {
-//    private static final Logger log = LoggerFactory.getLogger(NoteServlet.class);
+    private  final static Logger logger = Logger.getLogger(NoteServlet.class);
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -49,11 +49,13 @@ public class NoteServlet extends HttpServlet {
                 Date dateCompl = formatter.parse(a.getDateСompletion());
                 long minutes = (dateCompl.getTime() - date1.getTime()) / 60000;
                 if (minutes <= 60) {
+                    logger.info("added entry to reminders\n");
                     remember.add(a);
                 }
             } catch (ParseException e) {
             }
         }
+        logger.info("showing inscriptions\n");
             request.setAttribute("note", note);
             request.setAttribute("remember", remember);
 
@@ -64,5 +66,8 @@ public class NoteServlet extends HttpServlet {
 
     }
 
-
+    @Override
+    public void destroy() {
+        logger.info("work stopped\n");
+    }
 }

@@ -2,6 +2,7 @@ package Notebook.Servlets;
 
 import Notebook.Note.NoteToBd;
 import Notebook.Note.Sentence;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,8 @@ import java.util.List;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
+    private final static Logger logger = Logger.getLogger(SearchServlet.class);
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         String id = request.getParameter("id");
@@ -34,8 +37,11 @@ public class SearchServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-        if (list.isEmpty())
+        if (list.isEmpty()) {
+            logger.info("not search");
             response.sendRedirect(request.getContextPath() + "/notsearch.jsp");
+        }
+        logger.info("search completed");
 
         request.setAttribute("note", list);
         getServletContext().getRequestDispatcher("/searchall.jsp").forward(request, response);

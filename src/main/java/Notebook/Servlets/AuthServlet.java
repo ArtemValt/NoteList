@@ -1,6 +1,7 @@
 package Notebook.Servlets;
 
 import Notebook.Connect.ConnectionPool;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +17,7 @@ import java.sql.Statement;
 
 @WebServlet(urlPatterns = "/auth")
 public class AuthServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session.getAttribute("userId").equals(null))
-            resp.sendRedirect(req.getContextPath() + "/login.jsp");
-    }
+    private final static Logger logger = Logger.getLogger(AuthServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -47,9 +43,12 @@ public class AuthServlet extends HttpServlet {
                         session.setAttribute("userId", String.valueOf(id));
                         userId = String.valueOf(id);
                     }
-                    if (!userId.equals("null"))
+                    if (!userId.equals("null")) {
+                        logger.info("user logged in\n");
                         resp.sendRedirect(req.getContextPath() + "/index");
+                    }
                     else {
+                        logger.info("user not logged in\n");
                         resp.sendRedirect(req.getContextPath() + "/regis.jsp");
                     }
                 } catch (SQLException e) {

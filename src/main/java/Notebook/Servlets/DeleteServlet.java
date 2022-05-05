@@ -1,6 +1,7 @@
 package Notebook.Servlets;
 
 import Notebook.Note.NoteToBd;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
+    private final static Logger logger = Logger.getLogger(DeleteServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,6 +25,7 @@ public class DeleteServlet extends HttpServlet {
             String userId = String.valueOf(session.getAttribute("userId"));
             NoteToBd.delete(id, Long.parseLong(userId));
             response.sendRedirect(request.getContextPath() + "/index");
+            logger.info("Запись удалена");
         } catch (Exception ex) {
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
         }
